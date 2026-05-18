@@ -7,23 +7,34 @@ source_folder = input("Enter a valid Path for source folder: ")       #input pat
 source_folder = Path(source_folder)     #converting string to path object
 
 
-course_list = []
+course_dict = {}
 course_name = ""
+input_string = ""
+value_string = ""
 
-while(course_name != 'done'):
-    course_name = input("Enter course name (Enter 'done' to finish): ")
-    if course_name == 'done':
+while(input_string != 'done'):
+    input_string = input("Enter course name (Enter 'done' to finish): ")
+    if input_string == 'done':
         break
-    course_list.append(course_name)
+    course_dict[input_string] = []
+    while (value_string != 'done'):
+        value_string = input(f"Enter keywords for {input_string} (Enter 'done' to finish): ")
+        if value_string == 'done':
+            break
+        course_dict[input_string].append(value_string)
+    value_string = ""
 
-print(f"These are all the courses: {course_list}")
+
+for keys in course_dict:
+    if os.path.exists(keys):
+        print("folder already exists")
+    else:
+        os.makedirs(keys, exist_ok= True)
+        print(f"folder made for {keys}")
 
 
-for names in course_list:
-    os.makedirs(names, exist_ok = True)
-    print(f"folder created: {names}")
 
-
+print(f"These are all the courses: {course_dict}")
 
 
 

@@ -32,15 +32,19 @@ for keys in course_dict:
         os.makedirs(keys, exist_ok= True)
         print(f"folder made for {keys}")
 
-
-
 print(f"These are all the courses: {course_dict}")
 
-
-
-
+for file in source_folder.iterdir():
+    file_name = file.name.lower().strip()
+    for course, keywords in course_dict.items():
+        for keyword in keywords:
+            if keyword in file_name:  
+                print(f"match found for {course}")
+                course_folder = Path(course)
+                shutil.move(file, course_folder / file_name)
+                print(f"Moved {file_name} from {source_folder.name} to {course_folder.name}")
+                break
 
 
 #for file in source_folder.iterdir():
 #    print(file.name)
-
